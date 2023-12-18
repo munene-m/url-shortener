@@ -3,11 +3,15 @@ import cors from "cors";
 import bodyParser from "body-parser";
 const app = express();
 
+import shortenerRoute from "./routes/shortenerRoute";
+
 const PORT = process.env.PORT || 8080;
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use("/url", shortenerRoute);
 
 // Start the server
 app.listen(PORT, () => {
