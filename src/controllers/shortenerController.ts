@@ -12,7 +12,7 @@ const CLIENT_URL = process.env.CLIENT_URL;
 export const shortenUrl = async (req: Request, res: Response) => {
   const { url } = req.body as ShortenUrlRequest;
 
-  if (!validUrl.isUri(url)) {
+  if (!validUrl.isHttpsUri(url)) {
     return res.status(400).json({ error: "Invalid URL format" });
   }
 
