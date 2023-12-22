@@ -28,7 +28,7 @@ export const shortenUrl = async (req: Request, res: Response) => {
   res.status(200).json({ shortUrl: createdUrl.shortUrl });
 };
 
-export const redirectToOriginal = async (req: Request, res: Response) => {
+export const getOriginal = async (req: Request, res: Response) => {
   const { shortIdentifier } = req.params;
   try {
     const url = await prisma.url.findFirst({
@@ -39,8 +39,8 @@ export const redirectToOriginal = async (req: Request, res: Response) => {
     if (!url) {
       return res.status(404).json({ message: "Short url not found" });
     }
-
-    res.redirect(url.originalUrl);
+    res.status(200).json({ originalUrl: url.originalUrl });
+    // res.redirect(url.originalUrl);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
